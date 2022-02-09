@@ -40,7 +40,6 @@ client.on('ready', () => {
     console.log('the bot is ready!');
     new wokcommands_1.default(client, {
         commandsDir: path_1.default.join(__dirname, 'commands'),
-        typeScript: true,
     });
 });
 client.login(process.env.TOKEN);
