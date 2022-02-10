@@ -32,14 +32,15 @@ const client = new discord_js_1.default.Client({
         discord_js_1.Intents.FLAGS.GUILDS,
         discord_js_1.Intents.FLAGS.GUILD_MESSAGES,
         discord_js_1.Intents.FLAGS.DIRECT_MESSAGE_REACTIONS,
-        // Intents.FLAGS.GUILD_VOICE_STATES,
-        // Intents.FLAGS.GUILD_MEMBERS,
+        discord_js_1.Intents.FLAGS.GUILD_VOICE_STATES,
+        discord_js_1.Intents.FLAGS.GUILD_MEMBERS,
     ]
 });
 client.on('ready', () => {
     console.log('the bot is ready!');
     new wokcommands_1.default(client, {
-        commandsDir: path_1.default.join(__dirname, 'commands'),
+        commandsDir: path_1.default.join(__dirname, 'commandsJs'),
     });
 });
 client.login(process.env.TOKEN);
+exports.default = client;

@@ -1,9 +1,9 @@
-import { ICommand } from "wokcommands";
+import {ICommand} from 'wokcommands'
 
 let date = new Date();
 let dayOfWeekNumber = date.getDay();
-let leKick:string;
-let quote:string;
+let leKick:string
+let quote:string
 
 
 switch(dayOfWeekNumber){
@@ -46,4 +46,4 @@ export default {
             content: quote,
         })
     }
-} as ICommand
+}as ICommand
