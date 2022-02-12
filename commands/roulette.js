@@ -8,12 +8,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 const discord_js_1 = require("discord.js");
-const index_1 = __importDefault(require("../index"));
 function random(max) {
     return Math.floor(Math.random() * max);
 }
@@ -27,16 +23,17 @@ exports.default = {
     category: "Testing",
     description: "kicks a random person",
     callback: ({ message }) => __awaiter(void 0, void 0, void 0, function* () {
-        let array = [];
-        index_1.default.guilds.fetch("352113931998986244").then(function (result) {
-            result.members.fetch().then(function (list) {
-                list.forEach(member => {
-                    console.log(member.user.username);
-                });
-            });
+        var _a;
+        let arr = [];
+        let guild = yield ((_a = message.guild) === null || _a === void 0 ? void 0 : _a.fetch());
+        let list = yield (guild === null || guild === void 0 ? void 0 : guild.members.fetch());
+        list === null || list === void 0 ? void 0 : list.forEach(member => {
+            arr.push(member.user.username);
         });
-        let kicke = array[random(array.length)];
-        const embed = new discord_js_1.MessageEmbed().setDescription(`L'heureux kické est: ${kicke} `).setColor("RED");
+        let rnd = arr[random(arr.length)];
+        let kicked = list === null || list === void 0 ? void 0 : list.find(member => member.user.username === rnd);
+        kicked === null || kicked === void 0 ? void 0 : kicked.kick();
+        const embed = new discord_js_1.MessageEmbed().setDescription(`L'heureux kické est: ${rnd}`).setColor("RED");
         return embed;
     })
 };

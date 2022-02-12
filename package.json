@@ -1,15 +1,18 @@
 {
-  "name": "discord-bot",
+  "name": "discordbot",
   "version": "1.0.0",
-  "description": "",
+  "description": "I'm making this bot to have fun with my friends. <br>\r i can kick people, make specials commands and other fun stuff.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "tsc": "tsc -w --skipLibCheck"
   },
-  "keywords": [],
-  "author": "",
+  "author": "waypse",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/waypse/DiscordBot/issues"
+  },
+  "homepage": "https://github.com/waypse/DiscordBot#readme",
   "dependencies": {
     "discord.js": "^13.6.0",
     "dotenv": "^16.0.0",

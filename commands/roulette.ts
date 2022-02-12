@@ -16,20 +16,20 @@ export default {
     description: "kicks a random person",
     
     callback: async ({ message }) => {
-        let array:Array<string> = []
-        client.guilds.fetch("352113931998986244").then(function (result){
-            result.members.fetch().then(function (list) {
-                list.forEach(member =>{
-                    console.log(member.user.username)
-                })
-            })
+        let arr:string[] = [];
+
+        let guild = await message.guild?.fetch()
+        let list = await guild?.members.fetch()
+        list?.forEach(member =>{
+            arr.push(member.user.username)
         })
 
+        let rnd = arr[random(arr.length)]
+
+        let kicked = list?.find(member => member.user.username === rnd)
+        kicked?.kick()
         
-        
-        let kicke = array[random(array.length)]
-         
-        const embed = new MessageEmbed().setDescription(`L'heureux kické est: ${kicke} `).setColor("RED")
+        const embed = new MessageEmbed().setDescription(`L'heureux kické est: ${rnd}`).setColor("RED")
         return embed
     }
 }as ICommand
