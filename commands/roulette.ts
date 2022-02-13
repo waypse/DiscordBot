@@ -1,7 +1,5 @@
 import { Collection, MessageEmbed } from 'discord.js'
 import {ICommand} from "wokcommands"
-import client from '../index'
-
 
 function random (max:number){
     return Math.floor(Math.random() * max);
@@ -17,20 +15,20 @@ export default {
     requireRoles: true,
     
     callback: async ({ message }) => {
-        let array:Array<string> = []
+        let arr:string[] = [];
 
-        let guild = await client.guilds.fetch("352113931998986244")
-        let list = await guild.members.fetch()
-        list.forEach(member =>{
-            array.push(member.user.username)
+        let guild = await message.guild?.fetch()
+        let list = await guild?.members.fetch()
+        list?.forEach(member =>{
+            arr.push(member.user.username)
         })
-        let mess = array[random(array.length)]
 
-        let kicked = list.find(member => member.user.username === mess)
+        let rnd = arr[random(arr.length)]
 
+        let kicked = list?.find(member => member.user.username === rnd)
         kicked?.kick()
-         
-        const embed = new MessageEmbed().setDescription(`L'heureux kické est: ${mess} `).setColor("RED")
+        
+        const embed = new MessageEmbed().setDescription(`L'heureux kické est: ${rnd}`).setColor("RED")
         return embed
     }
 }as ICommand

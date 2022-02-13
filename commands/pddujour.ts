@@ -9,11 +9,11 @@ let quote:string
 switch(dayOfWeekNumber){
     case 0: 
         leKick = "486871708058255370"
-        quote = "Lundi c'est vasco le gros gay";
+        quote = "c'est vasco le gros gay";
         break;
     case 1:
         leKick = "523174789506924564"
-        quote = "Mardi, kymeto suce";
+        quote = "kymeto suce";
         break;
     case 2:
         leKick = "507580706101395457"
