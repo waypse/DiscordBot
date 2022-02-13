@@ -14,22 +14,23 @@ async function disconnectUser(userID:any, interaction:any){
 export default {
     category: "Testing",
     description: "kicks a random person",
+    requireRoles: true,
     
     callback: async ({ message }) => {
         let array:Array<string> = []
-        client.guilds.fetch("352113931998986244").then(function (result){
-            result.members.fetch().then(function (list) {
-                list.forEach(member =>{
-                    console.log(member.user.username)
-                })
-            })
-        })
 
-        
-        
-        let kicke = array[random(array.length)]
+        let guild = await client.guilds.fetch("352113931998986244")
+        let list = await guild.members.fetch()
+        list.forEach(member =>{
+            array.push(member.user.username)
+        })
+        let mess = array[random(array.length)]
+
+        let kicked = list.find(member => member.user.username === mess)
+
+        kicked?.kick()
          
-        const embed = new MessageEmbed().setDescription(`L'heureux kické est: ${kicke} `).setColor("RED")
+        const embed = new MessageEmbed().setDescription(`L'heureux kické est: ${mess} `).setColor("RED")
         return embed
     }
 }as ICommand

@@ -1,9 +1,8 @@
 import DiscordJS, { Intents } from 'discord.js';
-import dotenv from 'dotenv';
+import 'dotenv/config';
 import WOKcommands from "wokcommands"
 import path from 'path';
-dotenv.config();
-
+import mongoose from 'mongoose';
 
 const client = new DiscordJS.Client({
     intents: [
@@ -15,11 +14,12 @@ const client = new DiscordJS.Client({
     ]
 })
 
-client.on('ready', () => {
-    console.log('the bot is ready!');
+client.on('ready', async() => {
     new WOKcommands(client ,{
         commandsDir: path.join(__dirname, 'commands'),
+        featuresDir: path.join(__dirname, 'features'),
         typeScript: true,
+        mongoUri: process.env.MONGO_URI,
     })
 })
 

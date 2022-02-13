@@ -1,0 +1,52 @@
+import {Client} from 'discord.js'
+import schema from '../models/schema'
+
+
+export default (client: Client) => {
+    client.on("guildMemberAdd", async (member) => {
+        const result = await schema.findOne({guildId: member.guild.id, userId: member.id, type: 'mute',})
+        if (result) {
+            const mutedRole = member.guild.roles.cache.find((role) => role.name === 'Muted')
+            if(mutedRole) {
+                member.roles.add(mutedRole)
+            }
+        }
+    })
+    const check= async () => {
+        const query = {
+            expires: {$lt: new Date()}
+        }
+        const results = await schema.find(query)
+
+        for (const result of results) {
+            const {guildId, userId, type} = result
+            const guild = await client.guilds.fetch(guildId)
+            if(!guild) {
+                console.log(`Guild "${guildId}" no longer uses this bot`)
+                continue
+            }
+            if (type === 'mute'){
+                const muteRole = guild.roles.cache.get(userId)
+                if(!muteRole) {
+                    console.log(`Guild "${guildId}" does not have a muted role`)
+                    continue
+                }
+                const member = guild.members.cache.get(userId)
+                if(!member) {
+                    continue
+                }
+                member.roles.remove(muteRole)
+            }
+        }
+
+        await schema.deleteMany(query)
+        
+        setTimeout(check, 1000* 60)
+    }
+    check()
+}
+
+export const config = {
+    dbName: "EXPIRED_PUNISHMENTS",
+    displayName: "Expired Punishments"
+}
